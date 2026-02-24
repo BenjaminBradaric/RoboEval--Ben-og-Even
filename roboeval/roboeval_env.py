@@ -193,6 +193,7 @@ class RoboEvalEnv(gym.Env):
         # Validate cameras configuration
         if type(self._robot.config.cameras) is dict:
             available_cameras = set(self._ENV_CAMERAS + list(self._robot.config.cameras.keys()))
+            print("self._robot.config.cameras.keys())", self._robot.config.cameras.keys())
         elif type(self._robot.config.cameras) is list:
             available_cameras = set(self._ENV_CAMERAS + self._robot.config.cameras)
         else:

@@ -7,7 +7,8 @@ from roboeval.robots.configs.panda import BimanualPanda, SinglePanda
 from roboeval.utils.observation_config import ObservationConfig, CameraConfig
 from roboeval.envs.lift_pot import LiftPot
 
-
+#BANE 
+#~/.roboeval/roboeval_demos/1.0.0/BimanualPanda/LiftPot/JointPositionActionMode_floating_absolute_joint
 
 # Create environment with camera observations
 env = LiftPot(
@@ -21,13 +22,19 @@ env = LiftPot(
             name="head",
             rgb=True,
             depth=False,
-            resolution=(128, 128)
+            resolution=(96, 96)
         ),
         CameraConfig(
             name="left_wrist",
             rgb=True,
             depth=False,
-            resolution=(128, 128)
+            resolution=(96, 96)
+        ),
+        CameraConfig(
+            name="right_wrist",
+            rgb=True,
+            depth=False,
+            resolution=(96, 96)
         )
     ],
     proprioception=True,

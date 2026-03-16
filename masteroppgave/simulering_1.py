@@ -13,7 +13,7 @@ from roboeval.envs.stack_books import StackSingleBookShelf
 # Create environment with camera observations
 env = StackSingleBookShelf(
     action_mode=JointPositionActionMode(floating_base=True, absolute=True, floating_dofs=[]),
-    render_mode="rgb_array", #rgb_array
+    render_mode="human", #rgb_array
     control_frequency=20,
     robot_cls=BimanualPanda,
     observation_config= ObservationConfig(

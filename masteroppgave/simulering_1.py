@@ -6,14 +6,14 @@ from roboeval.envs.stack_books import PickSingleBookFromTablePositionAndOrientat
 from roboeval.robots.configs.panda import BimanualPanda, SinglePanda
 from roboeval.utils.observation_config import ObservationConfig, CameraConfig
 from roboeval.envs.lift_pot import LiftPot
-
+from roboeval.envs.stack_books import StackSingleBookShelf
 #BANE 
 #~/.roboeval/roboeval_demos/1.0.0/BimanualPanda/LiftPot/JointPositionActionMode_floating_absolute_joint
 
 # Create environment with camera observations
-env = LiftPot(
+env = StackSingleBookShelf(
     action_mode=JointPositionActionMode(floating_base=True, absolute=True, floating_dofs=[]),
-    render_mode="human",
+    render_mode="rgb_array", #rgb_array
     control_frequency=20,
     robot_cls=BimanualPanda,
     observation_config= ObservationConfig(
@@ -45,7 +45,7 @@ env = LiftPot(
 #print(env.config.camera.keys())
 
 
-# Get demonstrations from DemoStore
+#Get demonstrations from DemoStore
 metadata = Metadata.from_env(env)
 demos = DemoStore().get_demos(metadata, amount=100, frequency=20)
 

@@ -5,13 +5,15 @@ from roboeval.demonstrations.utils import Metadata
 from roboeval.envs.stack_books import PickSingleBookFromTablePositionAndOrientation
 from roboeval.robots.configs.panda import BimanualPanda, SinglePanda
 from roboeval.utils.observation_config import ObservationConfig, CameraConfig
-from roboeval.envs.lift_pot import LiftPot
+from roboeval.envs.lift_pot import LiftPot, LiftPotPositionAndOrientation
 from roboeval.envs.stack_books import StackSingleBookShelf
+from roboeval.envs.manipulation import StackTwoBlocksPositionAndOrientation
+from roboeval.envs.pack_objects import PackBoxPosition
 #BANE 
 #~/.roboeval/roboeval_demos/1.0.0/BimanualPanda/LiftPot/JointPositionActionMode_floating_absolute_joint
 
 # Create environment with camera observations
-env = StackSingleBookShelf(
+env = PackBoxPosition(
     action_mode=JointPositionActionMode(floating_base=True, absolute=True, floating_dofs=[]),
     render_mode="human", #rgb_array
     control_frequency=20,
@@ -47,7 +49,15 @@ env = StackSingleBookShelf(
 
 #Get demonstrations from DemoStore
 metadata = Metadata.from_env(env)
-demos = DemoStore().get_demos(metadata, amount=100, frequency=20)
+all_demos = DemoStore().get_demos(metadata, amount=300, frequency=20)
+
+# Filter to only successful demos (at least one step with reward > 0)
+successful_demos = [
+    demo for demo in all_demos
+    if sum(step.reward for step in demo.timesteps) > 0
+]
+demos = successful_demos[:100]
+print(f"Collected {len(all_demos)} demos, {len(successful_demos)} successful, using {len(demos)}")
 
 # Replay demonstrations
 for demo in demos:

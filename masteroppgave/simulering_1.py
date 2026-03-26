@@ -13,7 +13,7 @@ from roboeval.envs.pack_objects import PackBoxPosition
 #~/.roboeval/roboeval_demos/1.0.0/BimanualPanda/LiftPot/JointPositionActionMode_floating_absolute_joint
 
 # Create environment with camera observations
-env = PackBoxPosition(
+env = LiftPotPositionAndOrientation(
     action_mode=JointPositionActionMode(floating_base=True, absolute=True, floating_dofs=[]),
     render_mode="human", #rgb_array
     control_frequency=20,
@@ -49,7 +49,7 @@ env = PackBoxPosition(
 
 #Get demonstrations from DemoStore
 metadata = Metadata.from_env(env)
-all_demos = DemoStore().get_demos(metadata, amount=300, frequency=20)
+all_demos = DemoStore().get_demos(metadata, amount=102, frequency=20)
 
 # Filter to only successful demos (at least one step with reward > 0)
 successful_demos = [
